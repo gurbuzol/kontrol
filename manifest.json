@@ -1,18 +1,18 @@
 {
-  "name": "İş Takip",
-  "short_name": "İş Takip",
+  "name": "Kontrol",
+  "short_name": "kontrol",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#294b6b",
   "theme_color": "#3a6d9c",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/839/839860.png",
+      "src": "https://img.icons8.com/color/512/checklist.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/839/839860.png",
+      "src": "https://img.icons8.com/color/512/checklist.png",
       "sizes": "512x512",
       "type": "image/png"
     }
