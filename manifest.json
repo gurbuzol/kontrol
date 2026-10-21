@@ -3,18 +3,20 @@
   "short_name": "kontrol",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#294b6b",
-  "theme_color": "#3a6d9c",
+  "background_color": "#ffffff",
+  "theme_color": "#294b6b",
   "icons": [
     {
-      "src": "https://img.icons8.com/color/512/checklist.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/753/753318.png?v=2",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "https://img.icons8.com/color/512/checklist.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/753/753318.png?v=2",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
