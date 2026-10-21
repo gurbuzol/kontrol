@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>İş Takip</title>
+    
+    <!-- PWA / Manifest Meta Etiketleri -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3a6d9c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="İş Takip">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- Oswald Fontu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: linear-gradient(180deg, #32608a 0%, #294b6b 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-reset {
+            background-color: #fce300;
+            color: #2b557d;
+            font-size: 28px;
+            font-weight: 700;
+            border: none;
+            padding: 8px 45px;
+            border-radius: 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.1s, background-color 0.2s;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .btn-reset:active {
+            transform: scale(0.95);
+            background-color: #e6ce00;
+        }
+
+        .list-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .item-card {
+            background-color: #ffffff;
+            color: #2b557d;
+            font-size: 23px;
+            font-weight: 700;
+            text-align: center;
+            padding: 14px 10px;
+            border-radius: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+            transition: all 0.25s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 58px;
+        }
+
+        .item-card.completed {
+            background-color: rgba(255, 255, 255, 0.25);
+            color: rgba(43, 85, 125, 0.35);
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="btn-reset" onclick="resetAll()">SIFIRLA</button>
+        <div class="list-container" id="list"></div>
+    </div>
+
+    <script>
+        const initialItems = [
+            "MATBAA",
+            "MEDYA - İNTER - AJANSPRESS",
+            "ANADOLU - BİK",
+            "WHATSAPP",
+            "BASKI PDF",
+            "ARŞİV SAYFALAR",
+            "SDD - BULUT"
+        ];
+
+        let state = JSON.parse(localStorage.getItem('task_states')) || new Array(initialItems.length).fill(false);
+
+        function render() {
+            const container = document.getElementById('list');
+            container.innerHTML = '';
+            
+            initialItems.forEach((title, index) => {
+                const card = document.createElement('div');
+                card.className = `item-card ${state[index] ? 'completed' : ''}`;
+                card.innerText = title;
+                card.onclick = () => toggleItem(index);
+                container.appendChild(card);
+            });
+        }
+
+        function toggleItem(index) {
+            state[index] = !state[index];
+            localStorage.setItem('task_states', JSON.stringify(state));
+            render();
+        }
+
+        function resetAll() {
+            state = new Array(initialItems.length).fill(false);
+            localStorage.setItem('task_states', JSON.stringify(state));
+            render();
+        }
+
+        render();
+
+        // PWA Service Worker Kaydı
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
+    </script>
+</body>
+</html>
